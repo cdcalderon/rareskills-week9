@@ -4,7 +4,7 @@ The vulnerability we're dealing with here is a `timing attack` between the `remo
 
 # Exploit
 
-Rhe attacker deploys a `PoolAttacker` contract, which initially deposits some ETH into `ReadOnlyPool`. When the attack function is called, it triggers the `removeLiquidity` function, withdrawing the initial deposit. This withdrawal then triggers the `receive` function in `PoolAttacker`, which calls the `snapshotPrice` function in `VulnerableDeFiContract`. The key here is the timing of this call. It captures the `LP token price` at a time when the ETH has been withdrawn but the corresponding LP tokens have not been burned yet.
+The attacker deploys a `PoolAttacker` contract, which initially deposits some ETH into `ReadOnlyPool`. When the attack function is called, it triggers the `removeLiquidity` function, withdrawing the initial deposit. This withdrawal then triggers the `receive` function in `PoolAttacker`, which calls the `snapshotPrice` function in `VulnerableDeFiContract`. The key here is the timing of this call. It captures the `LP token price` at a time when the ETH has been withdrawn but the corresponding LP tokens have not been burned yet.
 
 ```solidity
 function removeLiquidity() external nonReentrant {
