@@ -12,7 +12,7 @@ This challenge revolves around exploiting a reentrancy vulnerability in a contra
 
 The problem is in the `Depositoor` contract, particularly in the `withdrawAndClaimEarnings` function. What this function does is it first gives out the RewardToken rewards to the person who staked their NFT. After that, it uses `safeTransferFrom` to send the staked NFT back. In the end, it removes the record of the staker's stake.
 
-The problem happens because s`afeTransferFrom `can run any piece of code and may end up running the `onERC721Received` function on the attacker's contract. And because `safeTransferFrom` is called before the stakes entry is deleted, this creates a chance for what's known as a reentrancy attack.
+The problem happens because `safeTransferFrom `can run any piece of code and may end up running the `onERC721Received` function on the attacker's contract. And because `safeTransferFrom` is called before the stakes entry is deleted, this creates a chance for what's known as a reentrancy attack.
 
 ## Exploitation Steps
 
